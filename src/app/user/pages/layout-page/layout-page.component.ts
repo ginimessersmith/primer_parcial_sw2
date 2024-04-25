@@ -39,7 +39,7 @@ export class LayoutPageComponent implements OnInit {
     if (assitantBool) {
       this.assitantEnable = JSON.parse(assitantBool)
     }
-    if(listAssistanLocal){
+    if (listAssistanLocal) {
       this.listAssistant = JSON.parse(listAssistanLocal)
     }
     if (userLocalStorage) {
@@ -86,27 +86,30 @@ export class LayoutPageComponent implements OnInit {
     let idLocal = localStorage.getItem('idAssistant')
 
     const question = this.inputMessage.controls['message'].value
+    this.inputMessage.patchValue({ message: '' })
     if (!idLocal) {
       console.log('el id no existe')
     } else {
       const id = JSON.parse(idLocal)
-      this.userService.sendMessage(question,id)
-      .subscribe(
-        (response)=>{
-          this.listAssistant = response
-          localStorage.setItem('listAssistan',JSON.stringify(this.listAssistant))
-        console.log({response})
-        }
-      )
+      this.userService.sendMessage(question, id)
+        .subscribe(
+          (response) => {
+            this.listAssistant = response
+            localStorage.setItem('listAssistan', JSON.stringify(this.listAssistant))
+            console.log({ response })
+          }
+        )
     }
 
 
   }
 
   deleteChat() {
+    localStorage.removeItem('listAssistan')
+    this.listAssistant=[]
     this.setAssitantEnable()
     localStorage.removeItem('idAssistant')
-    localStorage.removeItem('listAssistan')
+
 
   }
 
