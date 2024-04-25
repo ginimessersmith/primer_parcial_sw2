@@ -1,0 +1,84 @@
+<div class="m-2 text-end">
+  <button class="btn btn-danger mt-2" (click)="logout()">Cerrar Sesion</button>
+</div>
+
+<div class="row">
+  <div class="col-3">
+    <shared-side-menu></shared-side-menu>
+  </div>
+  <div class="col-9 mt-3">
+    <h1>Cursos</h1>
+    <hr />
+    <h2>Crear un Curso</h2>
+
+    <form
+      class="row g-3 needs-validation"
+      novalidate
+      [formGroup]="courseForm"
+      (ngSubmit)="registerCourse()"
+    >
+      <div class="col-md-4 position-relative">
+        <label for="validationTooltip01" class="form-label"
+          >Nombre del curso</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="validationTooltip01"
+          value=""
+          required
+          formControlName="nombre"
+        />
+        <div class="valid-tooltip">Looks good!</div>
+      </div>
+
+      <div class="col-md-4 position-relative">
+        <label for="validationTooltip02" class="form-label"
+          >Descripcion del Curso</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="validationTooltip02"
+          value=""
+          required
+          formControlName="descripcion"
+        />
+        <div class="valid-tooltip">Looks good!</div>
+      </div>
+
+      <div class="col-md-3 position-relative">
+        <label for="validationTooltip05" class="form-label"
+          >Carga horaria</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="validationTooltip05"
+          required
+          formControlName="carga_horaria"
+        />
+        <div class="invalid-tooltip">por favor datos correctos.</div>
+      </div>
+
+      <div class="col-md-3 position-relative">
+        <label for="validationTooltip04" class="form-label"
+          >Institucion a la que pertenece</label
+        >
+        <select class="form-select" formControlName="InstitucionId">
+          <option value="" selected>Instituciones...</option>
+          <option
+            *ngFor="let institucion of listInstitution"
+            [value]="institucion.id"
+          >
+            {{ institucion.nombre }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-12">
+        <button class="btn btn-primary" type="submit" [disabled]="courseForm.invalid">Registrar Curso</button>
+      </div>
+    </form>
+  </div>
+</div>

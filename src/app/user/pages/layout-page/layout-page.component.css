@@ -1,0 +1,13 @@
+.user-message,
+.assistant-message {
+  width: fit-content;
+  max-width: 80%; /* Establece el ancho máximo para los mensajes */
+}
+
+.user-message {
+  margin-right: auto; /* Mueve los mensajes de usuario hacia la izquierda */
+}
+
+.assistant-message {
+  margin-left: auto; /* Mueve los mensajes de asistente hacia la derecha */
+}

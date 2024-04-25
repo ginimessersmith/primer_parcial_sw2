@@ -1,0 +1,99 @@
+<div class="m-2 text-end">
+  <button class="btn btn-danger mt-2" (click)="logout()">Cerrar Sesion</button>
+</div>
+
+<div class="row">
+  <div class="col-3">
+    <shared-side-menu></shared-side-menu>
+  </div>
+  <div class="col-9 mt-3">
+    <h1>Institucion</h1>
+    <hr />
+    <button class="btn btn-warning m-3" (click)="seeRegister()">
+      Registrar Institucion
+    </button>
+    <button class="btn btn-dark m-3" (click)="viewAllInstitution()">
+      Ver Instituciones
+    </button>
+
+    <form
+      *ngIf="registerInst"
+      [formGroup]="registerForm"
+      (ngSubmit)="registerInstitution()"
+    >
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Nombre"
+          formControlName="nombre"
+        />
+        <label for="">Nombre de la institucion</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="floatingAddress"
+          placeholder="Direccion"
+          formControlName="direccion"
+        />
+        <label for="floatingAddress">Direccion</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="floatingAddress"
+          placeholder="Pais"
+          formControlName="pais"
+        />
+        <label for="floatingAddress">Pais</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="floatingAddress"
+          placeholder="Tipo"
+          formControlName="tipo"
+        />
+        <label for="floatingAddress">Tipo de Institucion</label>
+      </div>
+      <div class="mb-3">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="registerForm.invalid"
+        >
+          Registrar
+        </button>
+      </div>
+    </form>
+
+    <div class="row" *ngIf="!registerInst">
+      <div class="col">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Dirección</th>
+              <th>País</th>
+              <th>Tipo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of listInstitution">
+              <td>{{ item.nombre }}</td>
+              <td>{{ item.direccion }}</td>
+              <td>{{ item.pais }}</td>
+              <td>{{ item.tipo }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+  </div>
+</div>

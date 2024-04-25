@@ -1,0 +1,104 @@
+<div
+  *ngIf="errorPerfil; else layout"
+  class="text-bg-danger w-50 rounded-3 p-3 mt-5"
+>
+  Primero Inicie Sesion
+</div>
+
+<ng-template #layout>
+  <div class="m-2 text-end">
+    <button class="btn btn-danger mt-2" (click)="logout()">
+      Cerrar Sesion
+    </button>
+  </div>
+
+  <div class="row">
+    <div class="col-3">
+      <shared-side-menu></shared-side-menu>
+    </div>
+
+    <div class="col-9">
+      <div class="card w-50">
+        <div class="card-body">
+          <h2 class="card-title text-center">Perfil de Usuario</h2>
+          <div class="mt-3">
+            <h6 class="card-subtitle mb-2">
+              <strong>Nombre: </strong> {{ this.user.nombre }}
+            </h6>
+            <p class="card-text">
+              <strong>Correo Electrónico: </strong>{{ this.user.correo }}
+            </p>
+            <p class="card-text">
+              <strong>Ocupacion: </strong> {{ this.user.tipo_usuario }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+
+      <h2>Asistente</h2>
+
+      <button
+        *ngIf="assitantEnable"
+        class="btn btn-warning"
+        (click)="newAssistant()"
+      >
+        Nuevo Asistente
+      </button>
+
+      <button
+        *ngIf="!assitantEnable"
+        class="btn btn-danger mx-2"
+        (click)="deleteChat()"
+      >
+        Eliminar Conversacion
+      </button>
+      <div *ngIf="!assitantEnable">
+        <div class="overflow-auto p-3" style="max-height: 300px">
+          <div *ngFor="let message of listAssistant">
+            <div
+              *ngIf="message.role === 'assistant'"
+              class="user-message border border-secondary rounded p-2 mb-2"
+            >
+              <p class="text-muted">
+                {{ message.content }}
+              </p>
+            </div>
+            <div
+              *ngIf="message.role === 'user'"
+              class="assistant-message border border-primary rounded p-2 mb-2"
+            >
+              <p class="text-primary">
+                {{ message.content }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <form [formGroup]="inputMessage" (ngSubmit)="sendQuestion()">
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Escribe tu mensaje aquí"
+              aria-label="Escribe tu mensaje aquí"
+              aria-describedby="button-send"
+              formControlName="message"
+
+            />
+            <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="inputMessage.invalid"
+            >
+              Enviar
+            </button>
+          </div>
+        </form>
+
+      </div>
+      <hr />
+
+    </div>
+  </div>
+</ng-template>

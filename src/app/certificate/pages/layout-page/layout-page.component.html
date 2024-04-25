@@ -1,0 +1,176 @@
+<div class="m-2 text-end">
+  <button class="btn btn-danger mt-2" (click)="logout()">Cerrar Sesion</button>
+</div>
+
+<div class="row">
+  <div class="col-3">
+    <shared-side-menu></shared-side-menu>
+  </div>
+  <div class="col-9">
+    <div>
+      <h1>Certificados</h1>
+      <hr />
+      <button class="btn btn-warning" (click)="seeRegister()">
+        Registrar Certificado
+      </button>
+      <button class="btn btn-dark mx-3" (click)="getAllCertificate()">
+        Ver Certificado
+      </button>
+    </div>
+
+    <form
+      *ngIf="isRegister"
+      class="row g-3 needs-validation mt-3"
+      [formGroup]="certificateForm"
+      (ngSubmit)="registerCertificate()"
+    >
+      <div class="col-md-4 position-relative">
+        <label for="validationTooltip01" class="form-label"
+          >Titulo del certificado</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="validationTooltip01"
+          value=""
+          formControlName="titulo"
+          required
+        />
+        <div class="valid-tooltip">Looks good!</div>
+      </div>
+
+      <div class="col-md-4 position-relative">
+        <label for="validationTooltip02" class="form-label"
+          >Descripcion del certificado</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="validationTooltip02"
+          value=""
+          required
+          formControlName="descripcion"
+        />
+        <div class="valid-tooltip">Looks good!</div>
+      </div>
+
+      <div class="col-md-3 position-relative">
+        <label for="fechaEmision" class="form-label">Fecha de emisión</label>
+        <input
+          type="date"
+          class="form-control"
+          id="fechaEmision"
+          name="fechaEmision"
+          required
+          formControlName="fecha_emision"
+        />
+      </div>
+
+      <div class="col-md-3 position-relative">
+        <label for="validationTooltip04" class="form-label">Curso</label>
+        <select class="form-select" formControlName="CursoId">
+          <option value="" selected>Cursos...</option>
+          <option *ngFor="let item of listCourses" [value]="item.id">
+            {{ item.nombre }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-12">
+        <button class="btn btn-primary" type="submit">Registrar Curso</button>
+      </div>
+    </form>
+    <div *ngIf="isList">
+      <div class="row">
+        <div class="col">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Fecha</th>
+                <!-- <th>Direccion de Bloque</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listCertificate">
+                <td>{{item.titulo}}</td>
+                <td>{{item.descripcion}}</td>
+                <td>{{item.fecha_emision}}</td>
+                <!-- <td>{{item.propietario}}</td> -->
+                <td>
+                  <button class="btn btn-primary" (click)="updateCertificate(item.id)">Actualizar</button>
+                </td>
+                <td>
+                  <button class="btn btn-danger" (click)="deleteOneCertificate(item.id)">Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <form
+      *ngIf="isUpdate"
+      class="row g-3 needs-validation mt-3"
+      [formGroup]="certificateUpdateForm"
+      (ngSubmit)="onUpdateCertificate()"
+    >
+      <div class="col-md-4 position-relative">
+        <label for="validationTooltip01" class="form-label"
+          >Titulo del certificado</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="validationTooltip01"
+          value=""
+          formControlName="titulo"
+          required
+        />
+        <div class="valid-tooltip">Looks good!</div>
+      </div>
+
+      <div class="col-md-4 position-relative">
+        <label for="validationTooltip02" class="form-label"
+          >Descripcion del certificado</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="validationTooltip02"
+          value=""
+          required
+          formControlName="descripcion"
+        />
+        <div class="valid-tooltip">Looks good!</div>
+      </div>
+
+      <div class="col-md-3 position-relative">
+        <label for="fechaEmision" class="form-label">Fecha de emisión</label>
+        <input
+          type="date"
+          class="form-control"
+          id="fechaEmision"
+          name="fechaEmision"
+          required
+          formControlName="fecha_emision"
+        />
+      </div>
+
+      <div class="col-md-3 position-relative">
+        <label for="validationTooltip04" class="form-label">Curso</label>
+        <select class="form-select" formControlName="CursoId">
+          <option value="" selected>Cursos...</option>
+          <option *ngFor="let item of listCourses" [value]="item.id">
+            {{ item.nombre }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-12">
+        <button class="btn btn-primary" type="submit">Actualizar Curso</button>
+      </div>
+    </form>
+  </div>
+</div>
