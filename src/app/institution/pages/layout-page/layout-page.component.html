@@ -88,6 +88,9 @@
               <td>{{ item.direccion }}</td>
               <td>{{ item.pais }}</td>
               <td>{{ item.tipo }}</td>
+              <td>
+                <button class="btn btn-danger" (click)="deleteInstitution(item.id)">Eliminar</button>
+              </td>
             </tr>
           </tbody>
         </table>

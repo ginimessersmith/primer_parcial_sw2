@@ -24,4 +24,10 @@ export class InstitutionService {
     const url = `${this.baseUrl}/institution/`
     return this.httpClient.get<Institution[]>(url)
   }
+
+  delete(id:number):Observable<boolean>{
+    const url = `${this.baseUrl}/institution/${id}`
+    return this.httpClient.delete<boolean>(url)
+
+  }
 }

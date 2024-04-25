@@ -148,32 +148,33 @@ export class LayoutPageComponent implements OnInit {
       console.log('error el user no existe en el localstorage')
     }
 
-    const updateCertificate: UpdateCertificate = { titulo, descripcion, fecha_emision,UsuarioId:usuarioIdLocal.id, CursoId}
+    const updateCertificate: UpdateCertificate = { titulo, descripcion, fecha_emision, UsuarioId: usuarioIdLocal.id, CursoId }
     console.log('update certificate')
-    console.log({id:+id,updateCertificate})
+    console.log({ id: +id, updateCertificate })
     this.certificateService.updateCertificate(id, updateCertificate)
-    .subscribe({
-      next:()=>{
-        Swal.fire('','Actualizado con exito','success')
-      },
-      error:(err)=>{
-        Swal.fire('','Error al actualizar','error')
-        console.log({err})
-      }
-    })
+      .subscribe({
+        next: () => {
+          Swal.fire('', 'Actualizado con exito', 'success')
+        },
+        error: (err) => {
+          Swal.fire('', 'Error al actualizar', 'error')
+          console.log({ err })
+        }
+      })
   }
 
-  deleteOneCertificate(id:number){
+  deleteOneCertificate(id: number) {
     this.certificateService.deleteCertificate(id)
-    .subscribe({
-      next:()=>{
-        Swal.fire('','Eliminado con exito','success')
-      },
-      error:(err)=>{
-        Swal.fire('','Error al eliminar','error')
-        console.log({err})
-      }
-    })
+      .subscribe({
+        next: () => {
+          this.listCertificate = this.listCertificate.filter(certi => certi.id !== id)
+          Swal.fire('', 'Eliminado con exito', 'success')
+        },
+        error: (err) => {
+          Swal.fire('', 'Error al eliminar', 'error')
+          console.log({ err })
+        }
+      })
 
   }
 }

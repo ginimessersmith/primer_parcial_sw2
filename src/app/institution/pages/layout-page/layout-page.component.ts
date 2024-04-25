@@ -73,6 +73,20 @@ export class LayoutPageComponent implements OnInit {
     localStorage.setItem('registerInst', JSON.stringify(this.registerInst))
   }
 
+  deleteInstitution(id:number){
+    this.InstitutionService.delete(id)
+    .subscribe({
+      next:()=>{
+        this.listInstitution = this.listInstitution.filter(instit => instit.id !==id)
+        Swal.fire('','Eliminacion con exito','success')
+      },
+      error:(err)=>{
+        console.log({err})
+        Swal.fire('','Error al eliminar la institucion','error')
+      }
+    })
+  }
+
 
 
 }
