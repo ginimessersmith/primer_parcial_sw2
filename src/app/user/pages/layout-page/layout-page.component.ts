@@ -70,8 +70,7 @@ export class LayoutPageComponent implements OnInit {
   }
 
   newAssistant() {
-    this.setAssitantEnable()
-
+    this.setAssitantEnable()  
     this.userService.newAssistant()
       .subscribe({
         next: (response) => {
@@ -84,7 +83,6 @@ export class LayoutPageComponent implements OnInit {
 
   sendQuestion() {
     let idLocal = localStorage.getItem('idAssistant')
-
     const question = this.inputMessage.controls['message'].value
     this.inputMessage.patchValue({ message: '' })
     if (!idLocal) {
@@ -100,8 +98,6 @@ export class LayoutPageComponent implements OnInit {
           }
         )
     }
-
-
   }
 
   deleteChat() {
@@ -109,8 +105,6 @@ export class LayoutPageComponent implements OnInit {
     this.listAssistant=[]
     this.setAssitantEnable()
     localStorage.removeItem('idAssistant')
-
-
   }
 
   private setAssitantEnable() {
