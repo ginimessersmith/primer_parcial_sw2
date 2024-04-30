@@ -36,5 +36,10 @@ export class UserService {
     return this.httpClient.post<AsistantResponse[]>(url,body)
   }
 
+  getAllUsers():Observable<User[]>{
+    const url = `${this.baseUrl}/user/`
+    return this.httpClient.get<User[]>(url)
+  }
+
 
 }

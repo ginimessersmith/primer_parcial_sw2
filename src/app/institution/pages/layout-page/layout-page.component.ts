@@ -28,11 +28,7 @@ export class LayoutPageComponent implements OnInit {
     private InstitutionService: InstitutionService
   ) { }
   ngOnInit(): void {
-    const registerBoolLocal = localStorage.getItem('registerInst')
-    // const listLocal = localStorage.getItem('listInstitution')
-    if (registerBoolLocal) this.registerInst = JSON.parse(registerBoolLocal)
-    // if (listLocal) this.listInstitution = JSON.parse(listLocal)
-  this.viewAllInstitution()
+   
   }
 
   logout() {

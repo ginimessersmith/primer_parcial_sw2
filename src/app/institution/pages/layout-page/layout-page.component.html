@@ -9,10 +9,10 @@
   <div class="col-9 mt-3">
     <h1>Institucion</h1>
     <hr />
-    <button class="btn btn-warning m-3" (click)="seeRegister()">
+    <button class="m-3" mat-raised-button color="primary" (click)="seeRegister()">
       Registrar Institucion
     </button>
-    <button class="btn btn-dark m-3" (click)="viewAllInstitution()">
+    <button class="btn btn-dark m-3"  mat-raised-button color="accent"  (click)="viewAllInstitution()">
       Ver Instituciones
     </button>
 
@@ -21,56 +21,86 @@
       [formGroup]="registerForm"
       (ngSubmit)="registerInstitution()"
     >
-      <div class="form-floating mb-3">
-        <input
+      <div class="">
+        <!-- <input
           type="text"
           class="form-control"
           placeholder="Nombre"
           formControlName="nombre"
         />
-        <label for="">Nombre de la institucion</label>
+        <label for="">Nombre de la institucion</label> -->
+        <mat-form-field class="w-50">
+          <mat-label>Nombre de la institucion</mat-label>
+          <input type="text" matInput formControlName="nombre">
+          <mat-error
+          *ngIf="registerForm.controls['nombre'].invalid && registerForm.controls['nombre'].touched"
+          >Este campo es requerido</mat-error>
+        </mat-form-field>
+
       </div>
       <div class="form-floating mb-3">
-        <input
+        <!-- <input
           type="text"
           class="form-control"
           id="floatingAddress"
           placeholder="Direccion"
           formControlName="direccion"
         />
-        <label for="floatingAddress">Direccion</label>
+        <label for="floatingAddress">Direccion</label> -->
+        <mat-form-field class="w-50">
+          <mat-label>Direccion</mat-label>
+          <input type="text" matInput formControlName="direccion">
+          <mat-error
+          *ngIf="registerForm.controls['direccion'].invalid && registerForm.controls['direccion'].touched"
+          >Este campo es requerido</mat-error>
+        </mat-form-field>
       </div>
       <div class="form-floating mb-3">
-        <input
+        <!-- <input
           type="text"
           class="form-control"
           id="floatingAddress"
           placeholder="Pais"
           formControlName="pais"
         />
-        <label for="floatingAddress">Pais</label>
+        <label for="floatingAddress">Pais</label> -->
+        <mat-form-field class="w-50">
+          <mat-label>Pais</mat-label>
+          <input type="text" matInput formControlName="pais">
+          <mat-error
+          *ngIf="registerForm.controls['pais'].invalid && registerForm.controls['pais'].touched"
+          >Este campo es requerido</mat-error>
+        </mat-form-field>
       </div>
       <div class="form-floating mb-3">
-        <input
+        <!-- <input
           type="text"
           class="form-control"
           id="floatingAddress"
           placeholder="Tipo"
           formControlName="tipo"
         />
-        <label for="floatingAddress">Tipo de Institucion</label>
+        <label for="floatingAddress">Tipo de Institucion</label> -->
+        <mat-form-field class="w-50">
+          <mat-label>Tipo de Institucion</mat-label>
+          <input type="text" matInput formControlName="tipo">
+          <mat-error
+          *ngIf="registerForm.controls['tipo'].invalid && registerForm.controls['tipo'].touched"
+          >Este campo es requerido</mat-error>
+        </mat-form-field>
       </div>
       <div class="mb-3">
         <button
           type="submit"
-          class="btn btn-primary"
           [disabled]="registerForm.invalid"
+          mat-flat-button color="primary"
         >
           Registrar
         </button>
       </div>
     </form>
 
+    <!-- lista -->
     <div class="row" *ngIf="!registerInst">
       <div class="col">
         <table class="table">
@@ -80,6 +110,7 @@
               <th>Dirección</th>
               <th>País</th>
               <th>Tipo</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -89,7 +120,9 @@
               <td>{{ item.pais }}</td>
               <td>{{ item.tipo }}</td>
               <td>
-                <button class="btn btn-danger" (click)="deleteInstitution(item.id)">Eliminar</button>
+                <button mat-mini-fab color="warn" (click)="deleteInstitution(item.id)">
+                <mat-icon>delete</mat-icon>
+                </button>
               </td>
             </tr>
           </tbody>

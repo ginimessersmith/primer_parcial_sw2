@@ -1,31 +1,39 @@
 <h2 class="text-center mt-5">Inicie Sesion</h2>
 
-<form class="mt-5 bg-warning rounded-3 w-50 mx-auto "
-[formGroup]="loginForm"
-(ngSubmit)="onLogin()"
+<form
+  class="mt-5rounded-3 w-50 mx-auto"
+  [formGroup]="loginForm"
+  (ngSubmit)="onLogin()"
 >
-  <div class="justify-content-center p-3">
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label ">Email</label>
+  <div class="row">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
       <input
         type="email"
-        class="form-control mx-auto"
-        id="exampleInputEmail1"
-        aria-describedby="emailHelp"
+        matInput
         formControlName="correo"
+        placeholder="ej: gino@gmail.com"
       />
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input
-        type="password"
-        class="form-control mx-auto "
-        id="exampleInputPassword1"
-        formControlName="password"
-      />
-    </div>
+    </mat-form-field>
+  </div>
 
-    <button type="submit" class="btn bg-primary mx-auto text-white" [disabled]="loginForm.invalid">Iniciar Sesion</button>
-    <div id="accountHelp" class="form-text">No tienes una cuenta? <strong class="" routerLink="/auth/register">haz click aqui</strong></div>
+  <div class="row">
+    <mat-form-field>
+      <mat-label>Contraseña</mat-label>
+      <input type="password" matInput formControlName="password" />
+    </mat-form-field>
+  </div>
+
+  <div class="row w-50 mx-auto">
+    <button mat-raised-button color="primary" [disabled]="loginForm.invalid">
+      Ir
+      <mat-icon>login</mat-icon>
+    </button>
+  </div>
+
+  <div class="form-text mt-3">
+    No tienes una cuenta?
+    <strong class="" routerLink="/auth/register">haz click aqui</strong>
+
   </div>
 </form>

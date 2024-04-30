@@ -9,33 +9,70 @@
   <div class="col-9 mt-3">
     <h1>Cursos</h1>
     <hr />
-    <button class="btn btn-warning" (click)="seeRegister()">Registrar un curso</button>
-    <button class="btn btn-dark mx-3" (click)="viewAllCourses()">Ver los curso</button>
+    <div class="mb-3">
+      <button
+        class="me-5"
+        mat-raised-button
+        color="primary"
+        (click)="seeRegister()"
+      >
+        Registrar un curso <mat-icon>app_registration</mat-icon>
+      </button>
+      <button mat-raised-button color="accent" (click)="viewAllCourses()">
+        Ver los curso <mat-icon>view_list</mat-icon>
+      </button>
+    </div>
+
     <!--------------------------------------------------------------------------- registro/ -->
     <form
       *ngIf="isRegister"
-      class="row g-3 needs-validation"
+      class="row g-3 mt-3"
       novalidate
       [formGroup]="courseForm"
       (ngSubmit)="registerCourse()"
     >
-      <div class="col-md-4 position-relative">
-        <label for="validationTooltip01" class="form-label"
+      <div class="row">
+        <div class="col position-relative">
+          <!-- <label for="validationTooltip01" class="form-label"
           >Nombre del curso</label
         >
         <input
           type="text"
-          class="form-control"
-          id="validationTooltip01"
           value=""
-          required
           formControlName="nombre"
+        /> -->
+          <mat-form-field class="w-100">
+            <mat-label>Nombre del Curso</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="nombre"
+              placeholder="Ej: Curso de IA"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col position-relative">
+          <!-- <label for="validationTooltip05" class="form-label"
+          >Carga horaria</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="validationTooltip05"
+          required
+          formControlName="carga_horaria"
         />
-        <div class="valid-tooltip">Looks good!</div>
+        <div class="invalid-tooltip">por favor datos correctos.</div> -->
+          <mat-form-field class="w-100">
+            <mat-label>Carga Horaria</mat-label>
+            <input type="number" matInput value="0" />
+          </mat-form-field>
+        </div>
       </div>
 
-      <div class="col-md-4 position-relative">
-        <label for="validationTooltip02" class="form-label"
+      <div class="row">
+        <div class="col position-relative">
+          <!-- <label for="validationTooltip02" class="form-label"
           >Descripcion del Curso</label
         >
         <input
@@ -46,46 +83,53 @@
           required
           formControlName="descripcion"
         />
-        <div class="valid-tooltip">Looks good!</div>
+        <div class="valid-tooltip">Looks good!</div> -->
+          <mat-form-field class="w-100">
+            <mat-label>Descripcion del Curso</mat-label>
+            <input type="text" matInput formControlName="descripcion" />
+            <textarea matInput></textarea>
+          </mat-form-field>
+        </div>
       </div>
-
-      <div class="col-md-3 position-relative">
-        <label for="validationTooltip05" class="form-label"
-          >Carga horaria</label
-        >
-        <input
-          type="text"
-          class="form-control"
-          id="validationTooltip05"
-          required
-          formControlName="carga_horaria"
-        />
-        <div class="invalid-tooltip">por favor datos correctos.</div>
-      </div>
-
-      <div class="col-md-3 position-relative">
-        <label for="validationTooltip04" class="form-label"
-          >Institucion a la que pertenece</label
-        >
-        <select class="form-select" formControlName="InstitucionId">
-          <option value="" selected>Instituciones...</option>
-          <option
-            *ngFor="let institucion of listInstitution"
-            [value]="institucion.id"
+      <div class="row">
+        <div class="col-md-3 position-relative">
+          <!-- <label for="validationTooltip04" class="form-label"
+            >Institucion a la que pertenece</label
           >
-            {{ institucion.nombre }}
-          </option>
-        </select>
+          <select class="form-select" formControlName="InstitucionId">
+            <option value="" selected>Instituciones...</option>
+            <option
+              *ngFor="let institucion of listInstitution"
+              [value]="institucion.id"
+            >
+              {{ institucion.nombre }}
+            </option>
+          </select> -->
+          <mat-form-field>
+            <mat-label>Seleccione Una Institurcion</mat-label>
+            <mat-select formControlName="InstitucionId">
+              <mat-option
+              *ngFor="let institucion of listInstitution"
+              [value]="institucion.id"
+              >
+              {{institucion.nombre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
 
-      <div class="col-12">
-        <button
-          class="btn btn-primary"
-          type="submit"
-          [disabled]="courseForm.invalid"
-        >
-          Registrar Curso
-        </button>
+      <div class="row">
+        <div class="col-12">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="courseForm.invalid"
+          >
+            Registrar Curso
+          </button>
+        </div>
       </div>
     </form>
     <!--------------------------------------------------------------------------- lista/ -->
@@ -98,20 +142,30 @@
                 <th>Nombre</th>
                 <th>Descripción</th>
                 <th>Carga Horaria</th>
-
+                <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of listCourses">
-                <td>{{item.nombre}}</td>
-                <td>{{item.descripcion}}</td>
-                <td>{{item.carga_horaria}}</td>
+                <td>{{ item.nombre }}</td>
+                <td>{{ item.descripcion }}</td>
+                <td>{{ item.carga_horaria }}</td>
 
                 <td>
-                  <button class="btn btn-primary" (click)="updateCourse(item.id)">Actualizar</button>
+                  <button
+                    mat-raised-button color="primary"
+                    (click)="updateCourse(item.id)"
+                  >
+                    Actualizar
+                  </button>
                 </td>
                 <td>
-                  <button class="btn btn-danger" (click)="onDelete(item.id)">Eliminar</button>
+                  <button
+                  mat-mini-fab color="warn"
+                  (click)="onDelete(item.id)">
+                   <mat-icon>delete</mat-icon>
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -128,7 +182,7 @@
       (ngSubmit)="onUpdate()"
     >
       <div class="col-md-4 position-relative">
-        <label for="validationTooltip01" class="form-label"
+        <!-- <label for="validationTooltip01" class="form-label"
           >Nombre del curso</label
         >
         <input
@@ -139,11 +193,15 @@
           required
           formControlName="nombre"
         />
-        <div class="valid-tooltip">Looks good!</div>
+        <div class="valid-tooltip">Looks good!</div> -->
+        <mat-form-field>
+          <mat-label>Nombre del curso</mat-label>
+          <input type="text" formControlName="nombre" matInput>
+        </mat-form-field>
       </div>
 
       <div class="col-md-4 position-relative">
-        <label for="validationTooltip02" class="form-label"
+        <!-- <label for="validationTooltip02" class="form-label"
           >Descripcion del Curso</label
         >
         <input
@@ -154,11 +212,15 @@
           required
           formControlName="descripcion"
         />
-        <div class="valid-tooltip">Looks good!</div>
+        <div class="valid-tooltip">Looks good!</div> -->
+        <mat-form-field>
+          <mat-label>Descripcion del Curso</mat-label>
+          <input type="text" matInput formControlName="descripcion">
+        </mat-form-field>
       </div>
 
       <div class="col-md-3 position-relative">
-        <label for="validationTooltip05" class="form-label"
+        <!-- <label for="validationTooltip05" class="form-label"
           >Carga horaria</label
         >
         <input
@@ -168,16 +230,15 @@
           required
           formControlName="carga_horaria"
         />
-        <div class="invalid-tooltip">por favor datos correctos.</div>
+        <div class="invalid-tooltip">por favor datos correctos.</div> -->
+        <mat-form-field>
+          <mat-label>Carga horaria</mat-label>
+          <input type="text" matInput formControlName="carga_horaria">
+        </mat-form-field>
       </div>
 
       <div class="col-12">
-        <button
-          class="btn btn-primary"
-          type="submit"
-        >
-          Actualizar Curso
-        </button>
+        <button mat-raised-button color="primary" type="submit">Actualizar Curso</button>
       </div>
     </form>
     <!--------------------------------------------------------------------------- end/ -->

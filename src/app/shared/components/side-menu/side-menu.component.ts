@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 interface MenuItem {
   title: string,
@@ -11,11 +13,7 @@ interface MenuItem {
   styleUrls: ['./side-menu.component.css']
 })
 export class SideMenuComponent {
-  public menu: MenuItem[] = [
-    {title:'Perfil',route:'/user'},
-    {title:'Cursos',route:'/course'},
-    {title:'Certificados',route:'/certificate'},
-    // {title:'Inscripciones',route:'/inscription'},
-    {title:'Institucion',route:'/institution'},
-  ]
+  constructor(
+    private router:Router
+  ){}
 }

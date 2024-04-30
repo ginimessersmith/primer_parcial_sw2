@@ -5,6 +5,7 @@ import { InstitutionRoutingModule } from './institution-routing.module';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     InstitutionRoutingModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule,
   ]
 })
 export class InstitutionModule { }

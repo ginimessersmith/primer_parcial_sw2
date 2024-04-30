@@ -1,0 +1,23 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Curso</th>
+      <th scope="col">Usuario</th>
+      <th scope="col">Correo del Usuario</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr  *ngFor="let insc of listInscriptions; let index = index">
+      <th scope="row">{{ index + 1 }}</th>
+      <td>{{ insc.curso.nombre }}</td>
+      <td>{{ insc.usuario.nombre }}</td>
+      <td>{{ insc.usuario.correo }}</td>
+      <td>
+        <button mat-raised-button color="warn" (click)="onDelete(insc.usuario.id,insc.curso.id)">eliminar</button>
+      </td>
+
+    </tr>
+  </tbody>
+</table>

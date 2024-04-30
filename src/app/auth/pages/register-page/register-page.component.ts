@@ -6,6 +6,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../../interfaces/user.interface';
 import Swal from 'sweetalert2'
 
+interface Tipo {
+  value: string
+  viewValue: string
+}
+
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
@@ -13,6 +18,11 @@ import Swal from 'sweetalert2'
 })
 export class RegisterPageComponent {
 
+  tipo: Tipo[] = [
+    { value: 'Estudiante', viewValue: 'Estudiante' },
+    { value: 'Docente', viewValue: 'Docente' },
+    { value: 'Administrativo', viewValue: 'Administrativo' },
+  ];
   private createUser: CreateUserRequest = {
     correo: '',
     nombre: '',
@@ -21,10 +31,10 @@ export class RegisterPageComponent {
   };
 
   public registerForm: FormGroup = this.formBuilder.group({
-    nombre: ['', [Validators.required,Validators.minLength(2)],[]],
-    correo: ['', [Validators.required, Validators.email,Validators.minLength(3)], []],
-    password: ['', [Validators.required,Validators.minLength(6)],[]],
-    tipo_usuario: ['', [Validators.required],[]],
+    nombre: ['', [Validators.required, Validators.minLength(2)], []],
+    correo: ['', [Validators.required, Validators.email, Validators.minLength(3)], []],
+    password: ['', [Validators.required, Validators.minLength(6)], []],
+    tipo_usuario: ['', [Validators.required], []],
   })
   constructor(
     private formBuilder: FormBuilder,
@@ -36,7 +46,10 @@ export class RegisterPageComponent {
 
   onRegister() {
     const { nombre, correo, password, tipo_usuario } = this.registerForm.value
-
+    console.log(nombre)
+    console.log(correo)
+    console.log(password)
+    console.log(tipo_usuario)
     this.createUser!.correo = correo
     this.createUser!.nombre = nombre
     this.createUser!.password = password

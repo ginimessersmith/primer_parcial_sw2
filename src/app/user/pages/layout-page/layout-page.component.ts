@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import { OneUserGet } from '../../interfaces/one-user.interface';
 import { AsistantResponse } from '../../interfaces/assitant-response.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { flatMap } from 'rxjs';
 
 @Component({
   selector: 'app-layout-page',
@@ -19,6 +20,7 @@ export class LayoutPageComponent implements OnInit {
   public user!: OneUserGet
   public idAssistant: String = ''
   public listAssistant: AsistantResponse[] = []
+  public isSpinner:boolean=false
 
   public inputMessage: FormGroup = this.FormBuilder.group({
     message: ['', [Validators.required, Validators.minLength(1)], []]
@@ -70,7 +72,7 @@ export class LayoutPageComponent implements OnInit {
   }
 
   newAssistant() {
-    this.setAssitantEnable()  
+    this.setAssitantEnable()
     this.userService.newAssistant()
       .subscribe({
         next: (response) => {
@@ -82,6 +84,7 @@ export class LayoutPageComponent implements OnInit {
   }
 
   sendQuestion() {
+    this.isSpinner=true
     let idLocal = localStorage.getItem('idAssistant')
     const question = this.inputMessage.controls['message'].value
     this.inputMessage.patchValue({ message: '' })
@@ -95,6 +98,7 @@ export class LayoutPageComponent implements OnInit {
             this.listAssistant = response
             localStorage.setItem('listAssistan', JSON.stringify(this.listAssistant))
             console.log({ response })
+            this.isSpinner=false
           }
         )
     }

@@ -1,10 +1,92 @@
 <div class="m-2 text-end">
-  <button class="btn btn-danger mt-2" (click)="logout()">
-    Cerrar Sesion
-  </button>
+  <button class="btn btn-danger mt-2" (click)="logout()">Cerrar Sesion</button>
 </div>
 
-  <div class="row">
-    <div class="col-3">
+<div class="row">
+  <div class="col-3">
     <shared-side-menu></shared-side-menu>
-    </div>
+  </div>
+  <div class="col-9">
+    <h2>Inscripcion</h2>
+
+    <mat-divider></mat-divider>
+
+    <button
+      class="my-3 me-3"
+      mat-raised-button
+      color="primary"
+      (click)="seeRegister()"
+    >
+      <mat-icon>app_registration</mat-icon> Registre una inscripcion
+    </button>
+
+    <button
+      class="my-3 me-3"
+      mat-raised-button
+      color="accent"
+      (click)="seeList()"
+    >
+      <mat-icon>format_list_bulleted</mat-icon>Mis inscripciones
+    </button>
+
+    <form
+      *ngIf="isRegister"
+      class="mt-3"
+      [formGroup]="inscriptionForm"
+      (ngSubmit)="onInscription()"
+    >
+      <h2>Registre una inscripcion:</h2>
+
+      <div class="row">
+        <mat-form-field class="w-30 me-3">
+          <mat-label>Seleccione un Estudiante</mat-label>
+          <mat-select formControlName="UsuarioId">
+            <mat-option *ngFor="let item of listUsers" value="{{ item.id }}">
+              {{ item.nombre }}
+            </mat-option>
+          </mat-select>
+          <mat-error
+          *ngIf="
+          inscriptionForm.controls['UsuarioId'].invalid &&
+          (inscriptionForm.controls['UsuarioId'].dirty ||
+          inscriptionForm.controls['UsuarioId'].touched)"
+          >
+            Este campo es requerido
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-30 me-3">
+          <mat-label>Seleccione un Curso</mat-label>
+          <mat-select formControlName="CursoId">
+            <mat-option *ngFor="let item of listCourses" value="{{ item.id }}">
+              {{ item.nombre }}
+            </mat-option>
+          </mat-select>
+          <mat-error
+          *ngIf="
+          inscriptionForm.controls['CursoId'].invalid &&
+          (inscriptionForm.controls['CursoId'].dirty ||
+          inscriptionForm.controls['CursoId'].touched)"
+          >
+            Este campo es requerido
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+
+      <div class="row d-flex justify-content-end">
+        <button
+          class="w-20"
+          mat-raised-button
+          color="primary"
+          [disabled]="inscriptionForm.invalid"
+        >
+          <mat-icon>save_as</mat-icon>
+          Guardar
+        </button>
+      </div>
+    </form>
+
+    <list-inscription *ngIf="isList"></list-inscription>
+  </div>
+</div>

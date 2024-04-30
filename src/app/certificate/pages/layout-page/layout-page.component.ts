@@ -1,3 +1,4 @@
+// import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Course } from 'src/app/course/interface/course.interface';
@@ -8,7 +9,6 @@ import { CertificateService } from '../../services/certificate.service';
 import Swal from 'sweetalert2'
 import { Certificate } from '../../interface/certificate.interface';
 import { UpdateCertificate } from '../../interface/update-certificate.interface';
-
 @Component({
   selector: 'app-layout-page',
   templateUrl: './layout-page.component.html',
@@ -47,10 +47,12 @@ export class LayoutPageComponent implements OnInit {
     private courseService: CourseService,
     private formBuilder: FormBuilder,
     private certificateService: CertificateService,
+    // private datePipe: DatePipe,
   ) { }
+
   ngOnInit(): void {
     this.loadCourses()
-    this.getAllCertificate()
+    // this.getAllCertificate()
   }
 
   logout() {
@@ -77,8 +79,15 @@ export class LayoutPageComponent implements OnInit {
     } else {
       console.log('error el user no existe en el localstorage')
     }
+    const year = fecha_emision.getFullYear();
+    const month = fecha_emision.getMonth() + 1;
+    const day = fecha_emision.getDate();
 
-    const createCertificate: CreateCertificate = { titulo, descripcion, fecha_emision, CursoId: +CursoId, UsuarioId: +usuarioIdLocal.id }
+    const fecha_emision_formateada = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+
+    const createCertificate: CreateCertificate = { titulo, descripcion, fecha_emision: fecha_emision_formateada, CursoId: +CursoId, UsuarioId: +usuarioIdLocal.id }
+    console.log({ createCertificate })
+
     this.certificateService.createCertificate(createCertificate)
       .subscribe({
         next: () => {
@@ -148,7 +157,7 @@ export class LayoutPageComponent implements OnInit {
       console.log('error el user no existe en el localstorage')
     }
 
-    const updateCertificate: UpdateCertificate = { titulo, descripcion, fecha_emision, UsuarioId: usuarioIdLocal.id, CursoId }
+    const updateCertificate: UpdateCertificate = { titulo, descripcion, fecha_emision, UsuarioId: usuarioIdLocal.id, CursoId:+CursoId }
     console.log('update certificate')
     console.log({ id: +id, updateCertificate })
     this.certificateService.updateCertificate(id, updateCertificate)

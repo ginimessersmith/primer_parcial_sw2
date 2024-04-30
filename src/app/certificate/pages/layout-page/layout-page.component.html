@@ -20,12 +20,12 @@
 
     <form
       *ngIf="isRegister"
-      class="row g-3 needs-validation mt-3"
+      class="row g-3 mt-3"
       [formGroup]="certificateForm"
       (ngSubmit)="registerCertificate()"
     >
       <div class="col-md-4 position-relative">
-        <label for="validationTooltip01" class="form-label"
+        <!-- <label for="validationTooltip01" class="form-label"
           >Titulo del certificado</label
         >
         <input
@@ -34,13 +34,16 @@
           id="validationTooltip01"
           value=""
           formControlName="titulo"
-          required
-        />
-        <div class="valid-tooltip">Looks good!</div>
+
+        /> -->
+        <mat-form-field>
+          <mat-label>Titulo del certificado</mat-label>
+          <input type="text" matInput formControlName="titulo" />
+        </mat-form-field>
       </div>
 
       <div class="col-md-4 position-relative">
-        <label for="validationTooltip02" class="form-label"
+        <!-- <label for="validationTooltip02" class="form-label"
           >Descripcion del certificado</label
         >
         <input
@@ -50,12 +53,15 @@
           value=""
           required
           formControlName="descripcion"
-        />
-        <div class="valid-tooltip">Looks good!</div>
+        /> -->
+        <mat-form-field>
+          <mat-label>Descripcion del certificado</mat-label>
+          <input type="text" matInput formControlName="descripcion" />
+        </mat-form-field>
       </div>
 
       <div class="col-md-3 position-relative">
-        <label for="fechaEmision" class="form-label">Fecha de emisión</label>
+        <!-- <label for="fechaEmision" class="form-label">Fecha de emisión</label>
         <input
           type="date"
           class="form-control"
@@ -63,23 +69,60 @@
           name="fechaEmision"
           required
           formControlName="fecha_emision"
-        />
+        /> -->
+        <mat-form-field class="example-form-field">
+          <mat-label>Seleccione una Fecha</mat-label>
+          <input
+            matInput
+            [matDatepicker]="datepicker"
+            formControlName="fecha_emision"
+          />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="datepicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datepicker>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Cancelar</button>
+              <button mat-raised-button color="primary" matDatepickerApply>
+                Aplicar
+              </button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+        </mat-form-field>
       </div>
 
       <div class="col-md-3 position-relative">
-        <label for="validationTooltip04" class="form-label">Curso</label>
+        <!-- <label for="validationTooltip04" class="form-label">Curso</label>
         <select class="form-select" formControlName="CursoId">
           <option value="" selected>Cursos...</option>
           <option *ngFor="let item of listCourses" [value]="item.id">
             {{ item.nombre }}
           </option>
-        </select>
+        </select> -->
+        <mat-form-field>
+          <mat-label>Cursos...</mat-label>
+          <mat-select formControlName="CursoId">
+            <mat-option *ngFor="let item of listCourses" [value]="item.id">{{
+              item.nombre
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
 
       <div class="col-12">
-        <button class="btn btn-primary" type="submit">Registrar Certificado</button>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="certificateForm.invalid"
+        >
+          Registrar Certificado
+        </button>
       </div>
     </form>
+
     <div *ngIf="isList">
       <div class="row">
         <div class="col">
@@ -89,20 +132,34 @@
                 <th>Título</th>
                 <th>Descripción</th>
                 <th>Fecha</th>
+                <th></th>
+                <th></th>
                 <!-- <th>Direccion de Bloque</th> -->
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of listCertificate">
-                <td>{{item.titulo}}</td>
-                <td>{{item.descripcion}}</td>
-                <td>{{item.fecha_emision}}</td>
+                <td>{{ item.titulo }}</td>
+                <td>{{ item.descripcion }}</td>
+                <td>{{ item.fecha_emision }}</td>
                 <!-- <td>{{item.propietario}}</td> -->
                 <td>
-                  <button class="btn btn-primary" (click)="updateCertificate(item.id)">Actualizar</button>
+                  <button
+                    mat-raised-button
+                    color="accent"
+                    (click)="updateCertificate(item.id)"
+                  >
+                    Actualizar
+                  </button>
                 </td>
                 <td>
-                  <button class="btn btn-danger" (click)="deleteOneCertificate(item.id)">Eliminar</button>
+                  <button
+                    mat-mini-fab
+                    color="warn"
+                    (click)="deleteOneCertificate(item.id)"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -110,6 +167,7 @@
         </div>
       </div>
     </div>
+
     <form
       *ngIf="isUpdate"
       class="row g-3 needs-validation mt-3"
@@ -117,7 +175,7 @@
       (ngSubmit)="onUpdateCertificate()"
     >
       <div class="col-md-4 position-relative">
-        <label for="validationTooltip01" class="form-label"
+        <!-- <label for="validationTooltip01" class="form-label"
           >Titulo del certificado</label
         >
         <input
@@ -126,13 +184,16 @@
           id="validationTooltip01"
           value=""
           formControlName="titulo"
-          required
-        />
-        <div class="valid-tooltip">Looks good!</div>
+
+        /> -->
+        <mat-form-field>
+          <mat-label>Titulo del certificado</mat-label>
+          <input type="text" matInput formControlName="titulo">
+        </mat-form-field>
       </div>
 
       <div class="col-md-4 position-relative">
-        <label for="validationTooltip02" class="form-label"
+        <!-- <label for="validationTooltip02" class="form-label"
           >Descripcion del certificado</label
         >
         <input
@@ -140,14 +201,17 @@
           class="form-control"
           id="validationTooltip02"
           value=""
-          required
+
           formControlName="descripcion"
-        />
-        <div class="valid-tooltip">Looks good!</div>
+        /> -->
+          <mat-form-field>
+            <mat-label>Descripcion del certificado</mat-label>
+            <input type="text" matInput formControlName="descripcion">
+          </mat-form-field>
       </div>
 
       <div class="col-md-3 position-relative">
-        <label for="fechaEmision" class="form-label">Fecha de emisión</label>
+        <!-- <label for="fechaEmision" class="form-label">Fecha de emisión</label>
         <input
           type="date"
           class="form-control"
@@ -155,21 +219,50 @@
           name="fechaEmision"
           required
           formControlName="fecha_emision"
-        />
+        /> -->
+        <mat-form-field class="example-form-field">
+          <mat-label>Seleccione una Fecha</mat-label>
+          <input
+            matInput
+            [matDatepicker]="datepicker"
+            formControlName="fecha_emision"
+          />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="datepicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datepicker>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Cancelar</button>
+              <button mat-raised-button color="primary" matDatepickerApply>
+                Aplicar
+              </button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+        </mat-form-field>
       </div>
 
       <div class="col-md-3 position-relative">
-        <label for="validationTooltip04" class="form-label">Curso</label>
+        <!-- <label for="validationTooltip04" class="form-label">Curso</label>
         <select class="form-select" formControlName="CursoId">
           <option value="" selected>Cursos...</option>
           <option *ngFor="let item of listCourses" [value]="item.id">
             {{ item.nombre }}
           </option>
-        </select>
+        </select> -->
+        <mat-form-field>
+          <mat-label>Cursos...</mat-label>
+          <mat-select formControlName="CursoId">
+            <mat-option *ngFor="let item of listCourses" [value]="item.id" >
+              {{ item.nombre }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
 
       <div class="col-12">
-        <button class="btn btn-primary" type="submit">Actualizar Curso</button>
+        <button mat-raised-button color="accent" type="submit" [disabled]="certificateUpdateForm.invalid">Actualizar Curso</button>
       </div>
     </form>
   </div>

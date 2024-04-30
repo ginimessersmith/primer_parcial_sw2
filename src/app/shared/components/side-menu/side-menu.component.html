@@ -1,12 +1,22 @@
-<h2>Menu</h2>
-
-<ul class="list-group w-50">
-  <li
-    *ngFor="let item of menu"
-    class="list-group-item"
-    [routerLink]="[item.route]"
-    routerLinkActive="active"
-  >
-    {{ item.title }}
-  </li>
-</ul>
+<!-- <section class="row">
+  <h2>Menu</h2>
+  <div class="d-flex flex-column">
+    <mat-button-toggle routerLink="/user">Perfil</mat-button-toggle>
+    <mat-button-toggle routerLink="/certificate"
+      >Certificados</mat-button-toggle
+    >
+    <mat-button-toggle routerLink="/course">Cursos</mat-button-toggle>
+    <mat-button-toggle routerLink="/inscription">Inscripcion</mat-button-toggle>
+    <mat-button-toggle routerLink="/institution">Institucion</mat-button-toggle>
+  </div>
+</section> -->
+<section>
+  <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu">Menu</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/user">Perfil</button>
+    <button mat-menu-item routerLink="/certificate">Certificado</button>
+    <button mat-menu-item routerLink="/course">Cursos</button>
+    <button mat-menu-item routerLink="/inscription">Inscripcion</button>
+    <button mat-menu-item routerLink="/institution">Institucion</button>
+  </mat-menu>
+</section>
